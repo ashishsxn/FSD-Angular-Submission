@@ -1,0 +1,108 @@
+<div *ngIf="currentUser.status=='blocked'" class="alert alert-danger" role="alert">
+    Sorry, your account is BLOCKED!! Please contact the administrator.
+</div>
+<div class="container" *ngIf="loggedin && currentUser.status=='unblocked'">
+    <h2>Hello {{currentUser.userName}},</h2>
+    <ul class="nav nav-tabs">
+        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#search">Search Trainings</a>
+        </li>
+        <li class="nav-item"><a (click)="update()" class="nav-link" data-toggle="tab" href="#current">Current Trainings</a></li>
+        <li class="nav-item"><a (click)="update()" class="nav-link" data-toggle="tab" href="#completed">Completed Trainings</a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="search" class="tab-pane fade show active">
+            <app-search-result></app-search-result>
+        </div>
+        <div id="current" class="tab-pane fade">
+            <div class="row" *ngFor="let data of courseData; let thiscard = index">
+                <div *ngIf="data.status =='Ongoing' && data.user==currentUser.email" class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Update Progress
+                                </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <input [(ngModel)]="data.progress" type="range" min="0" max="100"
+                                    class="form-control-range" class="slider" id="myRange" style="width: 100%">
+
+
+                                <div class="text-center">
+                                    <span class=" badge badge-info">{{data.progress}}%</span>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button (click)="updateProgress(data)" type="button" class="btn btn-primary" data-dismiss="modal">Update</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="data.user==currentUser.email && data.status !='Completed' && data.status!='Payment Withdrawn' " class="col card mt-2" #thiscard>
+                    <div class="card-body">
+                        <div class="row">
+                            <!-- <div class="col">
+                                <img src="{{data.logoUrl}}" width="150px" height="150px" class="rounded float-left"
+                                    alt="">
+                            </div> -->
+                            <div class="col text-center pt-2">
+                                Course: <br>
+                                <b>{{data.coursename}}</b> <br>
+                                Trainer: <br>
+                                <b>{{data.mentor}}</b> <br>
+                                Status: <br>
+                                <span *ngIf="data.status !='Rejected'" class="badge badge-info">{{data.status}}</span>
+                                <span *ngIf="data.status =='Rejected'" class="badge badge-danger">{{data.status}}</span>
+                                <div class="progress" *ngIf="data.status =='Ongoing'">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+                                        role="progressbar" aria-valuenow="data.progress" aria-valuemin="0"
+                                        aria-valuemax="100" [style.width]="data.progress+'%'">{{data.progress}}%
+                                    </div>
+                                </div> <br>
+                                <button *ngIf="data.status =='Ongoing'" type="button" class="btn btn-info"
+                                    data-toggle="modal" data-target="#exampleModal">
+                                    Update
+                                </button>
+
+                            </div>
+                            <div class="col text-center pt-2">
+                                <button (click)="payStart(data)" *ngIf="data.status =='Approved'" type="button"
+                                    class="btn btn-success m-2">Pay and start course</button><br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div id="completed" class="tab-pane fade">
+            <div  class="row" *ngFor="let data of courseData">
+                <div *ngIf="(data.status =='Completed'||data.status=='Payment Withdrawn') && data.user==currentUser.email" class="col card mt-2">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col text-center pt-3">
+                                Course: <br>
+                                <b>{{data.coursename}}</b> <br>
+                                Trainer: <br>
+                                <b>{{data.mentor}}</b> <br>
+                                Status: <br>
+                                <span *ngIf="data.status !='Rejected'" class="badge badge-info">{{data.status}}</span>
+                            </div>
+                            <div class="col text-center pt-5">
+                                <button type="button" class="btn btn-primary">View Certificate</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

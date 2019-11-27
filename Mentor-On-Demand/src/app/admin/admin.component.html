@@ -1,0 +1,43 @@
+<div class="container pt-2">
+    <div *ngIf="wrong" class="alert alert-danger" role="alert">
+        Wrong Credentials! Try Again
+    </div>
+    <div class="card bg-light">
+        <article class="card-body mx-auto" style="max-width: 500px;">
+            <h4 class="card-title mt-3 text-center">Admin Login</h4>
+            <p class="text-center"><i class="fa fa-wrench"> </i> <i class="fa fa-cogs"> </i></p>
+            <form [formGroup]="loginForm" (ngSubmit)="authenticate(loginForm.value)">
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                    </div>
+                    <input [class.is-invalid]="loginForm.get('email').invalid && loginForm.get('email').touched"
+                        formControlName="email" class="form-control" placeholder="Email address" type="email">
+                    <div class="input-group-append"
+                        [class.d-none]="loginForm.get('email').valid || loginForm.get('email').untouched">
+                        <span class="input-group-text text-danger" id=""><small>A valid e-mail is
+                                required</small></span>
+                    </div>
+                </div>
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                    </div>
+                    <input [class.is-invalid]="loginForm.get('password').invalid && loginForm.get('password').touched"
+                        formControlName="password" class="form-control" placeholder="Password" type="password">
+                    <div class="input-group-append"
+                        [class.d-none]="loginForm.get('password').valid || loginForm.get('password').untouched">
+                        <span class="input-group-text text-danger" id=""><small>Password is required</small></span>
+                    </div>
+                </div>
+
+
+                <input formControlName="role" type="hidden" value="admin">
+
+
+                <button [disabled]="!loginForm.valid" type="submit" class="btn btn-primary btn-block">Login</button>
+
+            </form>
+        </article>
+    </div>
+</div>

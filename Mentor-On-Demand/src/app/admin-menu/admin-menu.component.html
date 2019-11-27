@@ -1,0 +1,142 @@
+<div class="container">
+    <h2>Hello {{currentUser.userName}},</h2>
+    <ul class="nav nav-tabs">
+        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#tech">Edit Technologies</a>
+        </li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#accounts">Manage Accounts</a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="tech" class="tab-pane fade show active">
+            <div class="card">
+                <h5 class="card-header">
+                    <div class="row">
+                        <div class="col text-center">
+                            Technology
+                        </div>
+                        <div class="col text-center">
+                            Fee(&#8377;)
+                        </div>
+                        <div class="col text-center">
+                            Commission(%)
+                        </div>
+                        <div class="col text-center">
+                            Actions
+                        </div>
+                    </div>
+
+                </h5>
+                <div *ngFor="let techdata of technologies; let i=index" class="card-body">
+                    <div class="row">
+                        <div class="col text-center">
+                            {{techdata.technology}}
+                        </div>
+
+                        <div class="col text-center">
+                            <input #fee type="number" [value]="techdata.fee" class="form-control">
+                        </div>
+                        <div class="col text-center">
+                            <input #commission type="number" [value]="techdata.commission" class="form-control">
+                        </div>
+                        <div class="col text-center">
+                            <button class="btn btn-primary m-2" type="button"
+                                (click)="editTechnology(techdata,fee.value,commission.value)">Edit</button>
+                            <button class="btn btn-danger m-2" type="button"
+                                (click)="removeTechnology(techdata.technology)">Remove</button>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+
+
+                <div class="card-body">
+                    <form [formGroup]="techForm" (ngSubmit)="addTechnology(techForm.value)">
+                        <div class="row">
+                            <div class="col text-center align-center">
+                                <input formControlName="technology" type="text" class="form-control"
+                                    placeholder="Technology">
+                            </div>
+                            <div class="col text-center align-center">
+                                <input formControlName="fee" type="text" class="form-control" placeholder="Fee">
+                            </div>
+                            <div class="col text-center align-center">
+                                <input formControlName="commission" type="text" class="form-control"
+                                    placeholder="Commission">
+                            </div>
+                            <div class="col text-center">
+                                <button class="btn btn-success" type="submit">Add</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+        <div id="accounts" class="tab-pane fade">
+            <div class="card">
+                <h5 class="card-header">
+                    <div class="row">
+                        <div class="col text-center">
+                            Name
+                        </div>
+                        <div class="col text-center">
+                            e-mail
+                        </div>
+                        <div class="col text-center">
+                            Type
+                        </div>
+                        <div class="col text-center">
+                            Actions
+                        </div>
+                    </div>
+
+                </h5>
+
+                <div *ngFor="let userdata of users; let i = index" class="card-body">
+                    <div *ngIf="userdata.role!='admin'" class="row">
+                        <div class="col text-center">
+                            {{userdata.userName}}
+                        </div>
+                        <div class="col text-center">
+                            {{userdata.email}}
+                        </div>
+                        <div class="col text-center">
+                            {{userdata.role}}
+                        </div>
+                        <div class="col text-center">
+
+                            <button *ngIf="userdata.status=='blocked'" (click)="blockUser(userdata.email,i)"
+                                class="btn btn-success" type="button">Unblock</button>
+                            <button *ngIf="userdata.status!='blocked'" (click)="blockUser(userdata.email,i)"
+                                class="btn btn-danger" type="button">Block</button>
+                        </div>
+
+                    </div>
+                </div>
+                <div *ngFor="let userdata of mentors; let i = index" class="card-body">
+                    <div *ngIf="userdata.role!='admin'" class="row">
+                        <div class="col text-center">
+                            {{userdata.userName}}
+                        </div>
+                        <div class="col text-center">
+                            {{userdata.email}}
+                        </div>
+                        <div class="col text-center">
+                            {{userdata.role}}
+                        </div>
+                        <div class="col text-center">
+
+                            <button *ngIf="userdata.status=='blocked'" (click)="blockMentor(userdata.email,i)"
+                                class="btn btn-success" type="button">Unblock</button>
+                            <button *ngIf="userdata.status!='blocked'" (click)="blockMentor(userdata.email,i)"
+                                class="btn btn-danger" type="button">Block</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

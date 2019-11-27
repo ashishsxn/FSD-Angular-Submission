@@ -1,0 +1,26 @@
+[
+    {
+        "avatar": "assets/person1.png",
+        "trainer": "Sam",
+        "experience": 5,
+        "rating": 3,
+        "trainings": 6,
+        "fee": 40000
+    },
+    {
+        "avatar": "assets/person2.png",
+        "trainer": "Ema",
+        "experience": 7,
+        "rating": 4,
+        "trainings": 10,
+        "fee": 45000
+    },
+    {
+        "avatar": "assets/person3.png",
+        "trainer": "Jacob",
+        "experience": 3,
+        "rating": 2,
+        "trainings": 4,
+        "fee": 35000
+    }
+]

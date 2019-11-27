@@ -1,0 +1,30 @@
+[
+    {
+        "course": "Java Fundamentals",
+        "trainer": "Eric",
+        "status": "Awaiting Confirmation",
+        "completion":0,
+        "logoUrl": "assets/java.png"
+    },
+    {
+        "course": "MySql",
+        "trainer": "Joseph",
+        "status": "Ongoing",
+        "completion":63,
+        "logoUrl": "assets/mysql.png"
+    },
+    {
+        "course": "Angular",
+        "trainer": "Kevin",
+        "status": "Payment Pending",
+        "completion":0,
+        "logoUrl": "assets/angular.png"
+    },
+    {
+        "course": "CSS",
+        "trainer": "Immanuel",
+        "status": "Rejected",
+        "completion":0,
+        "logoUrl": "assets/css.png"
+    }
+]

@@ -1,0 +1,83 @@
+<div class="container pt-3">
+    <form class="form-inline" [formGroup]="searchForm" (ngSubmit)="search(searchForm.value)">
+        <select  formControlName="course" class="form-control mr-sm-2">
+            <option value="undefined">Select course</option>
+            <option *ngFor="let skill of technologies;let i=index" [value]="skill.technology">{{skill.technology}}
+            </option>
+        </select>
+        <span>from&nbsp;</span>
+        <input formControlName="from" class="form-control mr-sm-2" type="date" placeholder="select from date" aria-label="Search">
+        <select formControlName="timeslot" class="form-control mr-sm-2" name="timeSlot">
+            <option value="undefined">-- Select preferred time slot --</option>
+            <option value="1">10:00 AM - 12:00 PM</option>
+            <option value="2">11:00 AM - 01:00 PM</option>
+            <option value="3">02:00 PM - 04:00 PM</option>
+            <option value="4">03:00 PM - 05:00 PM</option>
+            <option value="5">06:00 PM - 08:00 PM</option>
+            <option value="6">09:00 PM - 11:00 PM</option>
+            <option value="7">10:00 PM - 12:00 PM</option>
+        </select>
+
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    <b>Search results </b>
+     <div *ngFor="let data of searchResults; let i = index">
+        <div class="modal fade" attr.id="demo{{i}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Mentor Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col text-center pt-5">
+                                Trainer: <br>
+                                <b>{{data.userName}}</b>
+                            </div>
+                            <div class="col text-center pt-5">
+                                <span class="btn btn-secondary">
+                                    Experience(years) <span class="badge badge-light">{{data.experience}}</span>
+                                </span>
+                            </div>
+                            <div class="col text-center pt-5">
+                                <span class="btn btn-info">
+                                    Fee <span class="badge badge-light">&#8377;{{chosenTech.fee}}</span>
+                                </span>
+                            </div>
+                            <div class="col text-center pt-5">
+                                <button type="button" class="btn btn-success" data-dismiss="modal"
+                                    (click)="propose(data)">Propose Training</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card mt-2" data-toggle="modal" attr.data-target="#demo{{i}}">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col text-center pt-5">
+                        Trainer: <br>
+                        <b>{{data.userName}}</b>
+                    </div>
+                    <div class="col text-center pt-5">
+                        <button type="button" class="btn btn-success">Propose Training</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
